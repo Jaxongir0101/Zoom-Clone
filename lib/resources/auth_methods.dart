@@ -26,6 +26,7 @@ class AuthMethods {
       User? user = userCredential.user;
 
       if (user != null) {
+        print(user);
         if (userCredential.additionalUserInfo!.isNewUser) {
           _firestore.collection("users").doc(user.uid).set({
             "username": user.displayName,
