@@ -7,7 +7,7 @@ class HistoryMeetingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  StreamBuilder(
+    return StreamBuilder(
       stream: FirestoreMethods().meetingsHistory,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -15,21 +15,27 @@ class HistoryMeetingScreen extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         }
-        if((snapshot.data! as dynamic).docs.length == 0){
-           return const Center(
+        if ((snapshot.data! as dynamic).docs.length == 0) {
+          return const Center(
             child: Text("No Meetings History"),
           );
         }
 
         return ListView.builder(
           itemCount: (snapshot.data! as dynamic).docs.length,
-          itemBuilder: (context, index) => ListTile(
-            title: Text(
-              'Room Name: ${(snapshot.data! as dynamic).docs[index]['meetingName']}',
-            ),
-            subtitle: Text(
-              'Joined on ${DateFormat.yMMMd().format((snapshot.data! as dynamic).docs[index]['createdAt'].toDate())}',
-            ),
+          itemBuilder: (context, index) => Column(
+            children: [
+             const  Divider(),
+              ListTile(
+                title: Text(
+                  'Room Name: ${(snapshot.data! as dynamic).docs[index]['meetingName']}',
+                ),
+                subtitle: Text(
+                  'Joined on ${DateFormat.yMMMd().format((snapshot.data! as dynamic).docs[index]['createAt'].toDate())}',
+                ),
+              ),
+            const  Divider(),
+            ],
           ),
         );
       },
