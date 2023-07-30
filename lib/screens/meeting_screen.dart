@@ -10,7 +10,6 @@ class MeetingScreen extends StatelessWidget {
   final JitsiMeetMethods _jitsiMeetMethods = JitsiMeetMethods();
 
   createNewMeeting() async {
-    print("data");
     var random = Random();
     String roomName = (random.nextInt(100000000)+1000000000).toString();
     _jitsiMeetMethods.createMeeting(
@@ -19,6 +18,11 @@ class MeetingScreen extends StatelessWidget {
       isVideoMuted: true,
     );
   }
+
+ joinMeeting(context){
+  Navigator.pushNamed(context, '/video-call');
+ }
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +40,7 @@ class MeetingScreen extends StatelessWidget {
               text: "New Meeting",
             ),
             HomeMeetingButton(
-              onPressed: () {},
+              onPressed: ()=>joinMeeting(context),
               icon: Icons.add_box_rounded,
               text: "Join Meeting",
             ),
